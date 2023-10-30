@@ -25,19 +25,6 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n = height.size();
-        int res = 0;
-        stack<int>st;
-        st.push(0);
-        for (int i = 0; i < n; i++)
-        {
-            while (!st.empty() && height[i] < height[st.top()])
-            {
-               res += (height[st.top()] - height[i]); // 单调递减，会有少算的一部分
-               st.pop();
-            }
-            st.push(i);
-        }
-        return res;
         
     }
 };
