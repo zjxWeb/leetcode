@@ -1,9 +1,3 @@
 {
-    "files.associations": {
-        "stack": "cpp",
-        "iostream": "cpp",
-        "deque": "cpp",
-        "string": "cpp",
-        "vector": "cpp"
-    }
+    "cmake.sourceDirectory": "E:/study/leetcode"
 }
