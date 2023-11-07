@@ -46,11 +46,37 @@ using namespace std;
 // masks[i] |= ...：将上述计算结果与masks[i]进行按位或运算，以便将字符串word中的所有字母的二进制标记组合在一起。
 // 这样，masks[i]的二进制表示将包含该字符串中所有不同的字母位置信息。
 
+
+// 两个字母位掩码做  ”|“  ---- 表示两个字母和在一起
+// 两个字母位掩码做  ”&“  ---- 可以判断是否有公共子串
 class Solution {
 public:
     int maxProduct(vector<string>& words) {
         int n = words.size();
-
+        vector<int>mask(n);
+        for (int i = 0; i < n; i++)
+        {
+            string str = words[i];
+            int wordLenth = str.size();
+            for (int j = 0; j < wordLenth; j++)
+            {
+                //合并字母位掩码
+                mask[i] |=  1 << (str[j] - 'a');
+            }   
+        }
+        int maxRes = 0;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if((mask[i] & mask[j]) == 0){
+                    maxRes = max(maxRes,int(words[i].size()*words[j].size()));
+                }
+            }
+            
+        }
+        return maxRes;
+        
     }
 };
 
