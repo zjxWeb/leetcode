@@ -31,12 +31,22 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<algorithm>
+#include<unordered_map>
 using namespace  std;
 
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        
+        unordered_map<string,vector<string>>mp;
+        vector<vector<string>>res;
+        for(auto& str : strs){
+            string key = str;
+            sort(key.begin(),key.end());
+            mp[key].push_back(str);
+        }
+        for(auto& [key,value] : mp)res.push_back(value);
+        return res;
     }
 };
 int main(){
