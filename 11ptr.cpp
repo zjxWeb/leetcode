@@ -27,13 +27,38 @@
 #include<vector>
 using namespace std;
 
+// 接雨水双指针思路
+// class Solution {
+// public:
+//     int maxArea(vector<int>& height) {
+//         int n = height.size();
+//         int sum = 0;
+//         int count = 0;
+//         if(n <= 2)  return 0;
+//         vector<int>maxLeft(n,0);
+//         vector<int>maxRight(n,0);
+//         // 左柱子高度
+//         maxLeft[0] = height[0];
+//         for (int i = 1; i < n; i++) maxLeft[i] = max(height[i],maxLeft[i-1]);
+//         maxRight[0] = height[n-1];
+//         for (int i = n - 2; i >= 0; i--) maxRight[i] = max(height[i],maxRight[i+1]);
+//         // 求和
+//         for (int i = 0; i < n; i++)
+//         {
+//             count = min(maxLeft[i],maxRight[i] - height[i]);
+//             sum += count;
+//         }
+//         return sum;
+//     }
+// };
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        
+       int n = height.size(),l = 0,r = n -1,res = 0;
+       while (l < r) (height[l] < height[r]) ? res = max(res,( r - l ) * height[l++]) : res = max(res,( r - l ) * height[r--]);
+       return res;
     }
 };
-
 int main(){
     Solution s;
     vector<int> height = {1,8,6,2,5,4,8,3,7};
