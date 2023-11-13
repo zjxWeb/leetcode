@@ -33,12 +33,35 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-
+        // int n = nums.size();
+        // int counts = 0;
+        // for(int i = 0; i < n; i++){
+        //     int sum = 0;
+        //     for (int j = i; j >= 0; j--)
+        //     {
+        //         sum += nums[j];
+        //         if(sum == k) counts++;
+        //     }
+        // }
+        // return counts;
+        // 建立哈希表 mp\textit{mp}mp，以和为键，出现次数为对应的值，
+        unordered_map<int,int>mp;
+        mp[0] = 1;
+        int count = 0,pre = 0;
+        for(auto & el : nums){
+            pre += el;
+            if(mp.find(pre-k) != mp.end()){
+                count += mp[pre-k];
+            }   
+            mp[pre]++;
+        }
+        return count;
     }
 };
 
