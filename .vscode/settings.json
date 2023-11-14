@@ -7,7 +7,8 @@
         "utility": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "unordered_map": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
