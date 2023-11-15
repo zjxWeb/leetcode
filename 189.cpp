@@ -48,19 +48,14 @@ using namespace std;
 
 class Solution {
 public:
-    vector<int> rotate(vector<int>& nums, int k) {
-        int n  = nums.size();
-        vector<int>res;
-        int l = n - k;
-        for (l; l < n; l++)
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int>num(n);
+        for(int i = 0;i < n;i++)
         {
-            res.push_back(nums[l]);
+            num[(i+k)%n] = nums[i];
         }
-        for (int i = 0; i < n - k; i++)
-        {
-            res.push_back(nums[i]);
-        }
-        return res;
+        nums.assign(num.begin(),num.end());
     }
 };
 
@@ -68,8 +63,9 @@ int main(){
     Solution s;
     vector<int>nums = {1,2,3,4,5,6,7};
     int k = 3;
-    for(auto el : s.rotate(nums,k)){
-        cout << el << endl;
-    }
+    // for(auto el : s.rotate(nums,k)){
+    //     cout << el << endl;
+    // }
+    s.rotate(nums,k);
     return 0;
 }
