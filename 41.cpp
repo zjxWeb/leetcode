@@ -38,12 +38,25 @@ using namespace std;
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
-        
+        // int n = nums.size();
+        // for(auto &  el : nums) if( el < 0 ) el = n + 1;
+        // for(int i = 0; i < n; i++){
+        //     int index = abs(nums[i]);
+        //     if( index <= n ) nums[index - 1] = -abs(nums[index - 1]);
+        // }
+        // for (int i = 0; i < n; i++) if(nums[i] > 0) return i + 1;
+        // return n + 1;
+
+        //置换的方法
+        int n = nums.size();
+        for(int i = 0; i < n; i++) while(nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) swap(nums[i], nums[nums[i] - 1]);
+        for(int i = 0; i < n; i++) if(nums[i] != i + 1) return i + 1;
+        return n + 1;
     }
 };
 
 int main(){
-    vector<int>nums = {3,4,-1,1};
+    vector<int>nums = {7,8,9,11,12};
     Solution s;
     cout << s.firstMissingPositive(nums) << endl;
 }
