@@ -9,7 +9,8 @@
         "algorithm": "cpp",
         "ostream": "cpp",
         "unordered_map": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "new": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
