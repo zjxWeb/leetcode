@@ -10,7 +10,7 @@
  */
 
 #include <iostream>
-
+#include <tuple>
 using namespace std;
 
 struct ListNode {
@@ -23,8 +23,46 @@ struct ListNode {
 
 class Solution {
 public:
+    // dummy 虚拟头节点
+    // pre 每次要反转列表的前一个节点 
+    // tail 每次要反转列表的尾部节点（为了寻找k个节点）
     ListNode* reverseKGroup(ListNode* head, int k) {
-
+        ListNode *dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode *pre = dummy;
+        while(head){
+            ListNode* tail = pre;
+            for(int i = 0; i < k; i++){
+                tail = tail->next;
+                if(!tail) return dummy->next;
+            }
+            // 记录下一个子链的起始位置
+            ListNode* nextStart = tail->next;
+            // 这里是 C++17 的写法，也可以写成
+            // pair<ListNode*, ListNode*> result = reverseList(head, tail);
+            // head = result.first;
+            // tail = result.second;
+            tie(head, tail) = reverseList(head, tail);
+            // 重新将子链接回原链表中
+            pre->next = head;
+            tail->next = nextStart;
+            pre = tail;
+            head = tail->next;
+        }
+        return dummy->next;
+    }
+private:
+    // 反转一个子列表
+    pair<ListNode*, ListNode*> reverseList(ListNode* head, ListNode* tail) {
+        ListNode* prev = tail->next;
+        ListNode* p = head;
+        while (prev != tail) {
+            ListNode* nex = p->next;
+            p->next = prev;
+            prev = p;
+            p = nex;
+        }
+        return {tail, head};
     }
 };
 
