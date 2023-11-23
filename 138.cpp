@@ -9,6 +9,7 @@
  * 
  */
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
@@ -27,15 +28,15 @@ public:
 
 class Solution {
 public:
+    unordered_map<Node*,Node*>res;
     Node* copyRandomList(Node* head) {
-        
+        if(head == nullptr) return nullptr;
+        if(!res.count(head)){
+            Node* newNode = new Node(head->val);
+            res[head] = newNode;
+            newNode->next = copyRandomList(head->next);
+            newNode->random = copyRandomList(head->random);
+        }
+        return res[head];
     }
 };
-
-int main(){
-    
-    Solution s;
-    s.copyRandomList(head);
-    
-    return 0;
-}
