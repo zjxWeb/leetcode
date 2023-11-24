@@ -24,6 +24,7 @@ struct ListNode {
 
 class Solution {
 public:
+//自顶向下归并排序
     ListNode* sortList(ListNode* head) {
         // 借助multiset来实现，编译器可以通过，lettcode不能通过
         // if(!head) return nullptr;
@@ -38,11 +39,49 @@ public:
         //     p = p->next;
         // }
         // return p;
-
-        //自顶向下归并排序
-        
+        return sortList(head,nullptr);
+    }
+    // 将链表分成两半，并且使用归并进行排序
+    ListNode* sortList(ListNode* head, ListNode* tail) {
+        if (head == nullptr) {
+            return head;
+        }
+        if (head->next == tail) {
+            head->next = nullptr;
+            return head;
+        }
+        ListNode* slow = head, *fast = head;
+        while (fast != tail) {
+            slow = slow->next;
+            fast = fast->next;
+            if (fast != tail) {
+                fast = fast->next;
+            }
+        }
+        ListNode* mid = slow;
+        return merge(sortList(head, mid), sortList(mid, tail));
+    }
+    ListNode* merge(ListNode* l1, ListNode* l2){
+        ListNode* dummy = new ListNode(0);
+        ListNode * temp = dummy;
+        ListNode* temp1 = l1,*temp2 = l2;
+        while(temp1 != nullptr && temp2 != nullptr){
+            if(temp1->val <= temp2->val){
+                temp->next = temp1;
+                temp1 = temp1->next;
+            }
+            else{
+                temp->next = temp2;
+                temp2 = temp2->next;
+            }
+            temp = temp->next;
+        }
+        if(temp1 != nullptr)temp->next = temp1;
+        else if(temp2 != nullptr)temp->next = temp2;
+        return dummy->next;
     }
 };
+
 
 int main(){
     
