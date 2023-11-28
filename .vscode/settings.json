@@ -16,7 +16,13 @@
         "unordered_set": "cpp",
         "iosfwd": "cpp",
         "bitset": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "queue": "cpp",
+        "list": "cpp",
+        "ios": "cpp",
+        "type_traits": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
