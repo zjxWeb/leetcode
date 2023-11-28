@@ -15,7 +15,8 @@
         "string": "cpp",
         "unordered_set": "cpp",
         "iosfwd": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
