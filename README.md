@@ -60,4 +60,12 @@ int dfs(TreeNode* root, int bit) {
         return res;
     }
 ```
+> 用 1 标记原方向的边，使用 0 标记反向边(将原路径的正向的和反向的进行标记)
 
+```c++
+for (auto edge : connections) {
+    e[edge[0]].push_back(make_pair(edge[1], 1));
+    e[edge[1]].push_back(make_pair(edge[0], 0));
+}
+
+```
