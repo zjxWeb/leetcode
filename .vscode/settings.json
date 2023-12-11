@@ -25,7 +25,8 @@
         "xutility": "cpp",
         "xtree": "cpp",
         "xhash": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "tuple": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.configureOnOpen": true
