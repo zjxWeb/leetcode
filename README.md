@@ -112,3 +112,54 @@ void unity(int x,int y){
 	fa[find(y)]=find(x);
 }
 ```
+
+## 差分数组（前缀和的逆运算）
+
+![2](./src/2.png)
+
+### 区间加
+
++ a = [0,0,0,0,0,0]要求给下标2到4的位置+2
+  + 差分数组：0  0  2  0  0  -2 （修改起始位2，和结束的后一位4+1 = 5）
+  + 前缀和：   0   0  2  2  2   0
++ ![3](./src/3.png)
+
++ ![4](./src/4.png)
+
+### leetcode 1094.cpp  拼车
+
+```c++
+class Solution {
+public:
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        // 差分数组(第一种写法)
+        int a[1001]{};
+        for(auto &el : trips){
+            int num = el[0],from = el[1],to = el[2];
+            a[from] += num;
+            a[to] -= num;
+        }
+        int s= 0;
+        for(int i= 0;i<1001;i++){
+            s += a[i];
+            if(s > capacity) return false;
+        }
+        return true;
+
+        // 差分数组(第二种写法)
+        map<int,int> m;
+        for(auto &el : trips){
+            int num = el[0],from = el[1],to = el[2];
+            m[from] += num;
+            m[to] -= num;
+        }
+        int s = 0;
+        for(auto [_,vallue]: m){
+            s += vallue;
+            if(s > capacity) return false;
+        }
+        return true;
+    }   
+};
+```
+
