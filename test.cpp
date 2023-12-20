@@ -1,24 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
 class Solution {
 public:
-    int findPeakElement(vector<int>& nums) {
-        int n = nums.size();
-        int l = 0, r = n - 1;
-        while(l < r){
-            int mid = l + ((r - l) >> 2);
-            if(nums[mid] > nums[mid+1]) r = mid;
-            else l = mid + 1;
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        stack<int>st;
+        int n = temperatures.size();
+        vector<int>res(n, 0);
+        st.push(0);
+        for (int i = 1; i < n; i++)
+        {
+            while (!st.empty() && temperatures[i] > temperatures[st.top()])
+            {
+                res[st.top()] = i - st.top();
+                st.pop();
+            }  
+            st.push(i);
         }
-        return l;
+        return res;
     }
 };
 int main(){
    Solution s;
-   vector<int> nums = {1,2,3,1};
-   cout << s.findPeakElement(nums) << endl;
+   vector<int> nums = {73,74,75,71,69,72,76,73};
+   s.dailyTemperatures(nums);
    return 0;
 }
