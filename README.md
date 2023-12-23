@@ -1,3 +1,5 @@
+
+
 # 每日一提，开始啦
 
 ## c++中的auto、const auto&
@@ -39,8 +41,156 @@
 
 > + **想要修改**元素 : `for(auto &&x:range)`
 
-> + **想要只读**元素：for(const auto& x:range) 
+> + **想要只读**元素：for(const auto& x:range) 	
 
+## Accumulate()函数
+
+> accumulate是`numeric`库中的一个函数，主要用来对指定范围内元素求和，但也自行指定一些其他操作，如范围内所有元素相乘、相除等。
+
+使用前需要引入相应的头文件。
+
+```
+#include <numeric>
+```
+
+- 函数共有四个参数，其中前三个为必须，第四个为非必需。
+- 若不指定第四个参数，则默认对范围内的元素进行累加操作。
+
+```
+accumulate(起始迭代器, 结束迭代器, 初始值, 自定义操作函数)
+```
+
+## 二、具体使用场景
+
+### 1. 计算数组中所有元素的和
+
+```
+#include <iostream>
+#include <vector>
+#include <numeric>
+using namespace std;
+
+int main() {
+    vector<int> arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int sum = accumulate(arr.begin(), arr.end(), 0); // 初值0 + (1 + 2 + 3 + 4 +... + 10)
+    cout << sum << endl;	// 输出55
+    return 0;
+}
+```
+
+### 2. 计算数组中所有元素的乘积
+
+需要指定第四个参数，这里使用的是乘法函数` multiplies<type>()`, type根据元素的类型选择。
+
+```
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+int main() {
+    vector<int> arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int sum = accumulate(arr.begin(), arr.end(), 1, multiplies<int>()); // 初值1 * (1 * 2 * 3 * 4 *... * 10)
+    cout << sum << endl;	// 输出3628800
+    return 0;
+}
+```
+
+### 3. 计算数组中每个元素乘以3之后的和
+
+```
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+int fun(int acc, int num) {
+    return acc + num * 3;     // 计算数组中每个元素乘以3
+}
+
+int main() {
+    vector<int> arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int sum = accumulate(arr.begin(), arr.end(), 0, fun);
+    cout << sum << endl;	// 输出 165
+    return 0;
+}
+```
+
+### 4.计算数组中每个元素减去3之后的和
+
+```
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+int fun(int acc, int num) {
+    return acc + (num - 3) ;     // 计算数组中每个元素减去3之后的和
+}
+
+int main() {
+    vector<int> arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int sum = accumulate(arr.begin(), arr.end(), 0, fun);
+    cout << sum << endl;    // 输出25
+    return 0;
+}
+```
+
+### 5.计算班级内学生的平均分
+
+```
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+struct Student {
+    string name;
+    int score;
+    Student() {};   // 无参构造函数
+    Student(string name, int score) : name(name), score(score) {};  // 有参构造函数
+};
+
+int fun(int acc, Student b) {
+    return a + b.score;
+}
+
+int main() {
+    vector<Student> arr;
+    arr.emplace_back("Alice", 82);
+    arr.emplace_back("Bob", 91);
+    arr.emplace_back("Lucy", 85);
+    arr.emplace_back("Anna", 60);
+    arr.emplace_back("June", 73);
+    int avg_score = accumulate(arr.begin(), arr.end(), 0, fun) / arr.size();	// 总分/学生数
+    cout << avg_score << endl;
+    return 0;
+}
+```
+
+### 6.拼接字符串
+
+> C++中字符串之间也可以使用`+`，即拼接两个字符串。
+
+```
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+int main() {
+    vector<string> words{"this ", "is ", "a ", "sentence!"};
+    string init, res;
+    res = accumulate(words.begin(), words.end(), init);    // 连接字符串
+    cout << res << endl;    // this is a sentence!
+    return 0;
+}
+```
 
 ## 49. 字母异位词分组
 

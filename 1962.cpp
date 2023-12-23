@@ -10,6 +10,8 @@
  */
 #include <iostream>
 #include <vector>
+#include <numeric>
+
 
 using namespace std;
 
@@ -17,7 +19,16 @@ using namespace std;
 class Solution {
 public:
     int minStoneSum(vector<int>& piles, int k) {
-
+        // 原地堆化  大顶堆
+        make_heap(piles.begin(), piles.end());
+        while(k-- && piles[0]){
+            pop_heap(piles.begin(), piles.end());// 弹出堆顶元素并移植堆尾
+            // 进行/2
+            piles.back() -= piles.back() / 2;
+            // 堆尾元素入堆
+            push_heap(piles.begin(), piles.end());
+        }
+        return accumulate(piles.begin(), piles.end(), 0);
     }
 };
 int main(){
