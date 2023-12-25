@@ -356,3 +356,35 @@ public:
 };
 ```
 
+### N皇后
+```cpp
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;// 记录结果
+        vector<int>path(n);// 记录路径上的数
+        vector<int>on_path(n);// 记录未选的数
+        vector<int>diag1(2 * n - 1);// r +c 
+        vector<int>diag2(2 * n - 1);// r - c
+        // dfs
+        function<void(int)> dfs = [&](int k){
+            if(k == n){
+                vector<string> board(n);// 记录棋盘
+                for(int i = 0; i < n; ++i)board[i] = string(path[i],'.') + 'Q' + string(n - 1 - path[i],'.');
+                ans.push_back(board);
+                return;
+            }
+            for(int j = 0; j < n; j++){
+                if(!on_path[j] && !diag1[k + j] &&!diag2[k - j + n -1]){ // k+j 右上 k-j 左上  n-1是为了避免负数
+                    path[k] = j;
+                    on_path[j] = diag1[k + j] = diag2[k - j + n -1] = true;
+                    dfs(k+1);
+                    on_path[j] = diag1[k + j] = diag2[k - j + n -1] = false;// 恢复现场
+                }
+            }
+        };
+        dfs(0);
+        return ans;
+    }
+};
+```
