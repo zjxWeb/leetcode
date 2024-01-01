@@ -1,3 +1,13 @@
+/**
+ * @file 1599.cpp1599. 经营摩天轮的最大利润
+ * @author your name (you@domain.com)
+ * @brief https://leetcode.cn/problems/maximum-profit-of-operating-a-centennial-wheel/description/
+ * @version 0.1
+ * @date 2024-01-01
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
 #include <iostream>
 #include <vector>
 #include <algorithm>
