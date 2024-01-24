@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include<unordered_map>
 
 using namespace std;
 
@@ -20,8 +21,15 @@ public:
     int majorityElement(vector<int>& nums) {
         int n = nums.size();
         int tmp = n / 2;
-        sort(nums.begin(), nums.end());
-        
+        unordered_map<int,int>count;
+        for(auto &el : nums){
+            count[el]++;
+        }
+        // 遍历count 如果存在value > tmp/2 则返回key
+        for(auto [k,v] : count){
+            if(v > tmp) return k;
+        }
+        return 0;
     }
 };
 
