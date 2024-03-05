@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -27,17 +28,44 @@ struct TreeNode {
 class Solution {
 public:
     TreeNode* reverseOddLevels(TreeNode* root) {
-        dfs(root->left, root->right, true);
+        // DFS
+        // dfs(root->left, root->right, true);
+        // return root;
+
+        // BFS
+        queue<TreeNode*> q;
+        q.emplace(root);
+        bool isOdd = false;
+        while(!q.empty()){
+            int n = q.size();
+            vector<TreeNode *>arr;
+            for(int i = 0; i < n; i++){
+                TreeNode * node = q.front();
+                q.pop();
+                if(isOdd){
+                    arr.push_back(node);
+                }
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+            }
+            if(isOdd){
+                // 交换节点
+                for(int l = 0,r = n -1;l < r;l++,r--){
+                    swap(arr[l]->val, arr[r]->val);
+                }
+            }
+            isOdd ^= true;
+        }
         return root;
     }
-private:
-    void dfs(TreeNode* root1, TreeNode* root2, bool isOdd)
-    {
-       if(root1 == nullptr) return;
-       if(isOdd) swap(root1->val, root2->val);
-       dfs(root1->left, root2->right,!isOdd);
-       dfs(root1->right, root2->left,!isOdd);
-    }
+// private:
+//     void dfs(TreeNode* root1, TreeNode* root2, bool isOdd)
+//     {
+//        if(root1 == nullptr) return;
+//        if(isOdd) swap(root1->val, root2->val);
+//        dfs(root1->left, root2->right,!isOdd);
+//        dfs(root1->right, root2->left,!isOdd);
+//     }
 
 };
 
